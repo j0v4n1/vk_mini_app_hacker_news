@@ -1,3 +1,5 @@
+import { TComment } from '../types';
+
 export { transformVKBridgeAdaptivity } from './transformVKBridgeAdaptivity';
 
 export const timeConverter = (unixTime: number) => {
@@ -10,4 +12,13 @@ export const timeConverter = (unixTime: number) => {
   const min = a.getMinutes();
   const time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + (min < 10 ? `0${min}` : min);
   return time;
+};
+
+export const countComments = (array: TComment[]) => {
+  return array.reduce((acc, el) => {
+    if (!el.deleted) {
+      acc += 1;
+    }
+    return acc;
+  }, 0);
 };

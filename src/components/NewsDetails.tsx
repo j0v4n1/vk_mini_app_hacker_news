@@ -2,7 +2,7 @@ import { Div, Group, SimpleCell, Spinner, Title } from '@vkontakte/vkui';
 import { useAppDispatch, useAppSelector } from '../service/store/index.types';
 import { RouterLink } from '@vkontakte/vk-mini-apps-router';
 import { Icon56UserSquareOutline } from '@vkontakte/icons';
-import { timeConverter } from '../utils';
+import { countComments, timeConverter } from '../utils';
 import { useEffect } from 'react';
 import { getComment } from '../utils/api';
 import { TComment } from '../types';
@@ -35,15 +35,6 @@ export default function NewsDetails() {
     );
   }
 
-  const countComments = () => [
-    comments.reduce((acc, el) => {
-      if (!el.deleted) {
-        acc += 1;
-      }
-      return acc;
-    }, 0),
-  ];
-
   return (
     <Group>
       <Div>
@@ -57,7 +48,7 @@ export default function NewsDetails() {
       </Div>
       <SimpleCell>{timeConverter(activeNewsItem.time)}</SimpleCell>
       <Group>
-        <Title style={{ padding: '20px' }}>Comments: {countComments()}</Title>
+        <Title style={{ padding: '20px' }}>Comments: {countComments(comments)}</Title>
         {comments.map((comment) => {
           return !comment.deleted && <Comment key={comment.id} comment={comment} />;
         })}
