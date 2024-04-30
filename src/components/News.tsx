@@ -34,7 +34,7 @@ export default function News() {
         </Button>
       </Div>
       <CardGrid size="l">
-        {news.slice(0, 100).map((newsItem: number) => {
+        {news.slice(0, 226).map((newsItem: number) => {
           return <NewsItem key={newsItem} id={newsItem} />;
         })}
       </CardGrid>

@@ -15,35 +15,33 @@ export default function NewsItem({ id }: { id: number }) {
   const { news } = useAppSelector((store) => store.news);
 
   useEffect(() => {
-    getNewsItem(id).then((data: TNews) => setItem(data));
+    getNewsItem(id).then((data: TNews) => {
+      setItem(data);
+    });
   }, [news]);
 
-  if (!item?.kids) {
+  if (!item || !item.kids || !item.url) {
     return null;
   }
-
   return (
-    item &&
-    item.url && (
-      <Card
-        onClick={() => {
-          dispatch(setActiveNewsItem(item));
-          routeNavigator.push(`news/${item.id}`);
-        }}
-        mode="shadow"
-        style={{
-          cursor: 'pointer',
-        }}>
+    <Card
+      onClick={() => {
+        dispatch(setActiveNewsItem(item));
+        routeNavigator.push(`news/${item.id}`);
+      }}
+      mode="shadow"
+      style={{
+        cursor: 'pointer',
+      }}>
+      <Div>
         <Div>
-          <Div>
-            <Title>{item.title}</Title>
-          </Div>
-          <SimpleCell before={<Icon56UserSquareOutline />}>{item.by}</SimpleCell>
-          <SimpleCell>
-            {timeConverter(item.time)}, rating: {item.score}
-          </SimpleCell>
+          <Title>{item.title}</Title>
         </Div>
-      </Card>
-    )
+        <SimpleCell before={<Icon56UserSquareOutline />}>{item.by}</SimpleCell>
+        <SimpleCell>
+          {timeConverter(item.time)}, rating: {item.score}
+        </SimpleCell>
+      </Div>
+    </Card>
   );
 }

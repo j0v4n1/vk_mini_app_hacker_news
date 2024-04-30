@@ -7,5 +7,6 @@ export type State = {
   news: number[];
   activeNewsItem: TNews | null;
   comments: TComment[];
+  isKids: boolean;
   error: string | undefined;
 };

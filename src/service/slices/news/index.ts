@@ -14,6 +14,7 @@ const initialState: State = {
   news: [],
   activeNewsItem: null,
   comments: [],
+  isKids: false,
   error: undefined,
 };
 
@@ -27,6 +28,10 @@ const news = createSlice({
     setComment: (state, action: PayloadAction<TComment>) => {
       state.comments.push(action.payload);
     },
+    setIsKids: (state, action: PayloadAction<boolean>) => {
+      state.isKids = action.payload;
+    },
+
     clearComments: (state) => {
       state.comments = [];
     },
@@ -51,6 +56,6 @@ const news = createSlice({
 
 const { reducer, actions } = news;
 
-export const { setActiveNewsItem, setComment, clearComments } = actions;
+export const { setActiveNewsItem, setComment, clearComments, setIsKids } = actions;
 
 export default reducer;

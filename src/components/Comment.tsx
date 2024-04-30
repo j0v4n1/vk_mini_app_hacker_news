@@ -1,23 +1,27 @@
 import { Icon56UserSquareOutline } from '@vkontakte/icons';
-import { Accordion, Div, Group, SimpleCell } from '@vkontakte/vkui';
+import { Div, Group, SimpleCell, Title } from '@vkontakte/vkui';
 import { TComment } from '../types';
 import { countComments, timeConverter } from '../utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getComment } from '../utils/api';
 import { useEffect, useState } from 'react';
+import { useAppDispatch } from '../service/store/index.types';
+import { setIsKids } from '../service/slices/news';
 
 type Props = {
   comment: TComment;
+  isExpanded: boolean;
 };
 
-export default function Comment({ comment }: Props) {
+export default function Comment({ comment, isExpanded }: Props) {
   const [kids, setKids] = useState<TComment[]>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!comment.kids) {
-      setKids([]);
       return;
     }
+    dispatch(setIsKids(true));
     comment.kids.map((kid: number) => {
       getComment(kid).then((data) => {
         setKids([...kids, data]);
@@ -30,16 +34,16 @@ export default function Comment({ comment }: Props) {
       <SimpleCell before={<Icon56UserSquareOutline />}>Comment posted by: {comment.by}</SimpleCell>
       <SimpleCell>{timeConverter(comment.time)}</SimpleCell>
       <Div>{ReactHtmlParser(comment.text)}</Div>
-      <Accordion>
-        <Accordion.Summary>Answers: {countComments(kids)}</Accordion.Summary>
-        {kids.map((kid) => {
-          return (
-            <Accordion.Content key={kid.id}>
-              <Comment comment={kid} />
-            </Accordion.Content>
-          );
-        })}
-      </Accordion>
+      {countComments(kids) !== 0 ? (
+        <Div>
+          <Title>Answers: {countComments(kids)}</Title>
+        </Div>
+      ) : null}
+      {isExpanded
+        ? kids.map((kid) => {
+            return <Comment isExpanded={isExpanded} key={comment.id} comment={kid} />;
+          })
+        : null}
     </Group>
   );
 }
