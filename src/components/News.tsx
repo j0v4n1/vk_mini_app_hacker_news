@@ -30,7 +30,7 @@ export default function News() {
     <>
       <Div style={{ paddingTop: 0 }}>
         <Button disabled={loading} onClick={refreshNews} id="1">
-          Обновить
+          Refresh
         </Button>
       </Div>
       <CardGrid size="l">
