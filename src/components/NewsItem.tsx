@@ -23,6 +23,7 @@ export default function NewsItem({ id }: { id: number }) {
   if (!item || !item.kids || !item.url) {
     return null;
   }
+
   return (
     <Card
       onClick={() => {

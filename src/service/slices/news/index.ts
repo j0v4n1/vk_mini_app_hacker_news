@@ -31,7 +31,6 @@ const news = createSlice({
     setIsKids: (state, action: PayloadAction<boolean>) => {
       state.isKids = action.payload;
     },
-
     clearComments: (state) => {
       state.comments = [];
     },
