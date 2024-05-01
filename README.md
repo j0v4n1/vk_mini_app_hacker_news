@@ -4,8 +4,8 @@
 
 ## Ссылки
 
-- [Исходный код на GitHub](ссылка_на_ваш_репозиторий)
-- [Приложение на VK Mini Apps](ссылка_на_VK_Mini_Apps)
+- [Исходный код на GitHub](https://github.com/j0v4nn1/vk_mini_app_hacker_news)
+- [Приложение на VK Mini Apps](https://vk.com/services?w=app51914874_486603491)
 
 ## Автор
 
